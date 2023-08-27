@@ -32,46 +32,48 @@ for line in lines:
 
 # 根窗口创建
 
-style = Style(theme='darkly')
+style = Style(theme='minty')
 root = style.master
 
-root = Tk()
-
 root.title("WSL Configer")
-root.geometry("380x250")
-Label(root, text="NetWork Relevant").place(x=0, y=0)
-# file_path_Text = Text(root, width=45, height=1)
-# file_path_Text.insert(END, file_path)
-# file_path_Text.place(x=55, y=3)
+root.geometry("380x320")
+Label(root, text="NetWork Relevant",font="微软雅黑 15").pack(side='top', anchor='nw',padx=5, pady=5)
+
 
 # NetWork Relevant
-IPv6_State = IntVar()
-Checkbutton(root, text="IPv6", variable=IPv6_State).place(x=5, y=20)
+IPv6_State = IntVar(value=1) if config['ipv6'] == 'true' else IntVar(value=0)
+Checkbutton(root, text="IPv6", variable=IPv6_State).place(x=10,y=50)
 
-Local_State = IntVar()
-Checkbutton(root, text="localhostForwarding", variable=Local_State).place(x=5, y=40)
+Local_State = IntVar(value=1) if config['localhostForwarding'] =='true' else IntVar(value=0)
+Checkbutton(root, text="localhostForwarding", variable=Local_State).place(x=200,y=50)
 
-Label(root, text="networkingMode").place(x=75, y=20)
+Frame(relief="flat").pack(fill="x", padx=5, pady=10)
+
+Label(root, text="networkingMode").place(x=10,y=80)
 networking_Mode_Text = Text(root, width=10, height=1)
 networking_Mode_Text.insert(END, config['networkingMode'])
-networking_Mode_Text.place(x=182, y=23)
+networking_Mode_Text.place(x=120,y=80)
 
-Label(root, text="vmSwitch").place(x=182, y=40)
+Label(root, text="vmSwitch").place(x=10,y=110)
 vmSwitch_Text = Text(root, width=10, height=1)
 vmSwitch_Text.insert(END, config['vmSwitch'])
-vmSwitch_Text.place(x=242, y=43)
+vmSwitch_Text.place(x=120,y=110)
 
-Label(root, text="Kernel Relevant").place(x=0, y=70)
-Label(root, text="Memory").place(x=5, y=93)
-memory_Text = Text(root, width=10, height=1)
-memory_Text.insert(END, config['memory'])
-memory_Text.place(x=75, y=93)
+Frame(relief="flat").pack(fill="x", padx=5, pady=40)
 
-Label(root, text="Swap").place(x=200, y=93)
-swap_Text = Text(root, width=10, height=1)
-swap_Text.insert(END, config['swap'])
-swap_Text.place(x=242, y=93)
+Label(root, text="Kernel Relevant",font="微软雅黑 15").pack(side='top', anchor='w',padx=5, pady=5)
+Label(root, text="Memory").place(x=10,y=200)
+memory_Text = Text(root,width=10,height=1)
+memory_Text.insert(END,config['memory'])
+memory_Text.place(x=120,y=200)
+
+Label(root,text="Swap").place(x=10,y=230)
+swap_Text = Text(root,width=10,height=1)
+swap_Text.insert(END,config['swap'])
+swap_Text.place(x=120,y=230)
+
+Frame(relief="flat").pack(fill="x", padx=5, pady=10)
 
 apply_config_button = Button(root, text="应用设置", width=8, command=apply_config)
-apply_config_button.place(x=10, y=155)
+apply_config_button.pack(side='bottom', anchor='se',padx=25, pady=25)
 root.mainloop()
